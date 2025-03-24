@@ -1,0 +1,11 @@
+package me.furkanzhlp.timedwings.adapter.adapters.fabledskyblock;
+
+import me.furkanzhlp.timedwings.TimedWings;
+import org.bukkit.event.Listener;
+
+public class FabledSkyblockListener implements Listener {
+    private final TimedWings plugin;
+    public FabledSkyblockListener(TimedWings plugin) {
+        this.plugin = plugin;
+    }
+}

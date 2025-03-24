@@ -1,0 +1,34 @@
+general:
+  time:
+    year: 'yıl'
+    years: 'yıl'
+    month: 'ay'
+    months: 'ay'
+    day: 'gün'
+    days: 'gün'
+    hour: 'saat'
+    hours: 'saat'
+    minute: 'dakika'
+    minutes: 'dakika'
+    second: 'saniye'
+    seconds: 'saniye'
+
+action-bar:
+  message: "&eUçuş Modu: %flightmode% &8| &6Kalan Uçuş Süresi: &e%duration%"
+  flight-mode:
+    enabled: "&a&lAçık"
+    disabled: "&c&lKapalı"
+
+placeholder:
+  timedwings_total_flight_time:
+    time: '{y} {mo} {d} {h} {m} {s}'
+    no-time: '&cSüre Kalmadı'
+  timedwings_total_flight_time_seconds:
+    time: '{time}'
+    no-time: '&cSüre Kalmadı'
+
+Adapters:
+  FabledSkyBlock:
+    Flight-Disabled: "&6TimedWings &8» &cBu adada uçmak için izniniz yok."
+  WorldGuard:
+    Flight-Disabled: "&6TimedWings &8» &cBu alanda uçmak için izniniz yok."

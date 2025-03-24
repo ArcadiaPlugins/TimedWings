@@ -1,0 +1,17 @@
+name: TimedWings
+version: '${project.version}'
+main: me.furkanzhlp.timedwings.TimedWings
+api-version: '1.13'
+author: FurkanZhlp
+softdepend:
+  - PlaceholderAPI
+  - FabledSkyBlock
+  - WorldGuard
+  - WorldEdit
+commands:
+  timedwings:
+    description: Management command of TimedWings plugin.
+    aliases:
+      - tw
+      - tempfly
+      - tfly

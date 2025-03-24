@@ -1,0 +1,12 @@
+package me.furkanzhlp.timedwings.adapter.adapters.fabledskyblock;
+
+import org.bukkit.event.Listener;
+
+public class FabledSkyblockListener implements Listener {
+
+
+
+
+
+
+}

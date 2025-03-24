@@ -1,0 +1,22 @@
+general:
+  time:
+    year: 'year'
+    years: 'years'
+    month: 'month'
+    months: 'months'
+    day: 'day'
+    days: 'days'
+    hour: 'hour'
+    hours: 'hours'
+    minute: 'minute'
+    minutes: 'minutes'
+    second: 'second'
+    seconds: 'seconds'
+
+placeholder:
+  timedwings_total_flight_time:
+    time: '{y} {mo} {d} {h} {m} {s}'
+    no-time: '&cNo Time'
+  timedwings_total_flight_time_seconds:
+    time: '{time}'
+    no-time: '&cNo Time'

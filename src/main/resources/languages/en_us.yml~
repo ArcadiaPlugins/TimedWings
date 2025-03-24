@@ -1,0 +1,32 @@
+general:
+  time:
+    year: 'year'
+    years: 'years'
+    month: 'month'
+    months: 'months'
+    day: 'day'
+    days: 'days'
+    hour: 'hour'
+    hours: 'hours'
+    minute: 'minute'
+    minutes: 'minutes'
+    second: 'second'
+    seconds: 'seconds'
+action-bar:
+  message: "&eFlight Mode: %flightmode% &8| &6Remaining Flight Time: &e%duration%"
+  flight-mode:
+    enabled: "&a&lEnabled"
+    disabled: "&c&lDisabled"
+
+placeholder:
+  timedwings_total_flight_time:
+    time: '{y} {mo} {d} {h} {m} {s}'
+    no-time: '&cNo Time Left'
+  timedwings_total_flight_time_seconds:
+    time: '{time}'
+    no-time: '&cNo Time Left'
+
+
+Adapters:
+  FabledSkyBlock:
+    Flight-Disabled: "&6TimedWings &8» &cYou don't have permission to fly in this island."

@@ -1,0 +1,87 @@
+# 🕊️ TimedWings
+
+**TimedWings** is a developer-friendly, modular timed flight plugin for Minecraft servers.
+
+It supports popular plugins like FabledSkyBlock, WorldGuard, and BentoBox with automatic integration, and provides a clean API for custom extensions.
+
+---
+
+## 📦 Installation
+
+Download the plugin from one of the following sources:
+
+- [SpigotMC](https://www.spigotmc.org/resources/00000) *(coming soon)*
+- [Polymart](https://polymart.org/resource/00000) *(coming soon)*
+
+Place the `.jar` file in your `/plugins` folder and start the server to generate configuration files.
+
+For detailed setup and configuration, see the [Wiki](https://plugins.arcadia.tc/en/timedwings/installation).
+
+---
+
+## 📚 Documentation
+
+Looking for placeholders, commands, configuration, or developer API?
+
+👉 Full documentation available on the [Wiki](https://plugins.arcadia.tc/en/timedwings)
+
+---
+
+## 🧑‍💻 Developer Usage
+
+```java
+PlayerData data = TimedWings.getInstance()
+    .getPlayerDataManager()
+    .getPlayerData(player);
+
+data.addFlightTime(600); // Adds 10 minutes of flight time
+```
+
+More: [Developer API](https://plugins.arcadia.tc/en/timedwings/developer_api)
+
+---
+
+## 🔗 Add as Dependency (JitPack)
+
+TimedWings can be added to your project via [JitPack](https://jitpack.io/#ArcadiaPlugins/TimedWings)
+
+### Maven
+
+```xml
+<repositories>
+  <repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+  </repository>
+</repositories>
+
+<dependency>
+  <groupId>com.github.ArcadiaPlugins</groupId>
+  <artifactId>TimedWings</artifactId>
+  <version>1.0.0</version> <!-- Replace with latest tag -->
+</dependency>
+```
+
+### Gradle
+
+```groovy
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation 'com.github.ArcadiaPlugins:TimedWings:1.0.0' // Replace with latest tag
+}
+```
+
+> 🧪 Tip: You can replace `1.0.0` with a specific tag or commit hash
+
+---
+
+## 🤝 Contributing
+
+Contributions, feature requests, and integrations are welcome. Feel free to open an issue or PR!
+
+---
+
+Made with ❤️ by [ArcadiaPlugins](https://github.com/ArcadiaPlugins)

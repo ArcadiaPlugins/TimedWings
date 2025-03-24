@@ -1,0 +1,68 @@
+general:
+
+  # Default supported languages: "en_us" (English), "tr_tr" (Turkish)
+  # Make sure the corresponding file exists in the /languages folder.
+  # For example, if you set "en_us", there must be a file named "en_en.yml".
+  language:
+    # The default language used by the plugin.
+    default: "en_us"
+    use-client-language:
+      # If enabled, the plugin uses the player's Minecraft client language.
+      status: true
+      # Used when a translation is missing for the player's language.
+      fallback-language: "en_us"
+
+      # To add support for other languages, create a corresponding .yml file in the /languages folder
+      # using the locale code from: https://minecraft.fandom.com/wiki/Language
+      # For example, for German (locale code: de_de), create a file named de_de.yml
+
+  storage:
+    # Storage type. Available options: "yaml", "sqlite", "mysql", "h2".
+    type: "yaml"
+
+
+    mysql:
+      # MySQL connection settings.
+      # MySQL is required for multiserver setups.
+      host: "localhost"
+      port: 3306
+      database: "timedwings"
+      username: "timedwings"
+      password: "timedwings"
+      table: "timedwings"
+
+  # List of permissions granted to players.
+  # If a player has any of these permissions, they will have unlimited flight time.
+  permissions:
+    - 'timedwings.unlimited'
+    - 'essentials.fly'
+    - 'cmi.command.fly'
+
+  # Worlds where temporary flight time is ignored.
+  # Players in these worlds can fly without any time limitations if they have the required permission.
+  disabled-worlds:
+    - 'disabled-world'
+
+  # Regions where temporary flight time is ignored.
+  # Works similarly to 'disabled-worlds' but applies to specific WorldGuard regions.
+  disabled-regions:
+    - 'disabled-region'
+
+  # Automatically enables flight mode when a player enters a flyable area.
+  auto-fly: true
+
+  action-bar:
+    # To change the appearance (colors, text) of the action bar message,
+    # edit the corresponding messages in the language file (e.g., /languages/language_en.yml).
+
+    # Enables or disables the flight status action bar.
+    enabled: true
+
+    # Defines how the remaining flight time is displayed in the action bar.
+    # Available placeholders: {y} years, {mo} months, {d} days, {h} hours, {m} minutes, {s} seconds.
+    duration-format: '{h} {m} {s}'
+
+    # Determines if the action bar should always be displayed, even when the player is not flying.
+    always-display: false
+
+
