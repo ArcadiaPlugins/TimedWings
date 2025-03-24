@@ -1,3 +1,9 @@
+![Java](https://img.shields.io/badge/language-Java-blue.svg)
+![Platform](https://img.shields.io/badge/platform-Spigot%20%7C%20Paper-yellow)
+![License](https://img.shields.io/github/license/ArcadiaPlugins/TimedWings)
+![Version](https://img.shields.io/github/v/tag/ArcadiaPlugins/TimedWings?label=latest)
+
+
 # 🕊️ TimedWings
 
 **TimedWings** is a developer-friendly, modular timed flight plugin for Minecraft servers.
