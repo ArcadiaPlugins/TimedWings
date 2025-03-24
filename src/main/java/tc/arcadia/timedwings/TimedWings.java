@@ -70,8 +70,6 @@ public class TimedWings extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new PlayerListeners(this),this);
 
-        getCommand("timedwings").setExecutor(new TimedWingsCommand(this));
-
         logger.log("TimedWings plugin has been successfully enabled on version "+getDescription().getVersion());
     }
 
