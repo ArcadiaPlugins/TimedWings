@@ -1,0 +1,56 @@
+name: 🐞 Bug Report
+description: Report a bug or unexpected behavior in TimedWings
+title: "[Bug] "
+labels: [bug]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out the form below to help us fix the issue faster.
+
+  - type: input
+    id: minecraft_version
+    attributes:
+      label: Minecraft Version
+      placeholder: "e.g. 1.20.1"
+    validations:
+      required: true
+
+  - type: input
+    id: plugin_version
+    attributes:
+      label: TimedWings Version
+      placeholder: "e.g. 1.0.2"
+    validations:
+      required: true
+
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: What happened?
+      description: Describe the bug and what you expected to happen instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Tell us how to reproduce the bug, step-by-step.
+      placeholder: |
+        1. Start the server
+        2. Give a player flight time
+        3. ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Server Log / Error Output
+      description: Paste any relevant console errors or logs here.
+      render: shell
+    validations:
+      required: false
