@@ -89,6 +89,12 @@ dependencies {
 Contributions, feature requests, and integrations are welcome. Feel free to open an issue or PR!
 
 ---
+## ☕ Support Arcadia Plugins
+
+If you like what we do, consider supporting us on [Buy Me a Coffee](https://buymeacoffee.com/arcadiaplugins) 💙  
+Your support helps us continue building awesome plugins like TimedWings.
+
+---
 
 Made with ❤️ by [ArcadiaPlugins](https://github.com/ArcadiaPlugins)
 
