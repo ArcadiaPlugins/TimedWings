@@ -85,3 +85,8 @@ Contributions, feature requests, and integrations are welcome. Feel free to open
 ---
 
 Made with ❤️ by [ArcadiaPlugins](https://github.com/ArcadiaPlugins)
+
+<!-- 
+🧠 Note: This project was inspired by some structural patterns seen in FabledSkyBlock.
+No original code was used or copied. All logic and implementations are written from scratch.
+-->

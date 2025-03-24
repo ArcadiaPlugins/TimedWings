@@ -1,6 +1,6 @@
 name: TimedWings
 version: '${project.version}'
-main: me.furkanzhlp.timedwings.TimedWings
+main: tc.arcadia.timedwings.TimedWings
 api-version: '1.13'
 author: FurkanZhlp
 softdepend:

@@ -214,7 +214,7 @@
         <dependency>
             <groupId>com.github.brcdev-minecraft</groupId>
             <artifactId>shopgui-api</artifactId>
-            <version>latest</version>
+            <version>3.0.0</version>
             <scope>provided</scope>
         </dependency>
 
