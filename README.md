@@ -3,6 +3,7 @@
 ![License](https://img.shields.io/github/license/ArcadiaPlugins/TimedWings)
 ![Version](https://img.shields.io/github/v/tag/ArcadiaPlugins/TimedWings?label=latest)
 
+[![Buy Me a Coffee](https://img.shields.io/badge/Support-Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buymeacoffee)](https://buymeacoffee.com/arcadiaplugins)
 
 # 🕊️ TimedWings
 
