@@ -8,7 +8,6 @@ Security updates are provided only for actively maintained versions.
 | Version | Supported          |
 |---------|--------------------|
 | 1.x     | ✅ Yes             |
-| 0.x     | ❌ No              |
 
 ---
 
