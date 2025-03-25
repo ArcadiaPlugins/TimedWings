@@ -13,6 +13,10 @@ It supports popular plugins like FabledSkyBlock, WorldGuard, and BentoBox with a
 
 ---
 
+📘 **Full documentation available at**: [plugins.arcadia.tc](https://plugins.arcadia.tc)
+
+---
+
 ## 📦 Installation
 
 Download the plugin from one of the following sources:
