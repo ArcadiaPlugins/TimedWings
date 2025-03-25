@@ -21,6 +21,7 @@ It supports popular plugins like FabledSkyBlock, WorldGuard, and BentoBox with a
 
 Download the plugin from one of the following sources:
 
+- [GitHub Releases](https://github.com/ArcadiaPlugins/TimedWings/releases/latest)
 - [SpigotMC](https://www.spigotmc.org/resources/00000) *(coming soon)*
 - [Polymart](https://polymart.org/resource/00000) *(coming soon)*
 
