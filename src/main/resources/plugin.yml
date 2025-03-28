@@ -2,7 +2,9 @@ name: TimedWings
 version: '${project.version}'
 main: tc.arcadia.timedwings.TimedWings
 api-version: '1.13'
-author: FurkanZhlp
+authors:
+  - ArcadiaPlugins
+  - FurkanZhlp
 softdepend:
   - PlaceholderAPI
   - FabledSkyBlock

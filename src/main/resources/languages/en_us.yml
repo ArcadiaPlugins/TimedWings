@@ -26,9 +26,49 @@ placeholder:
     time: '{time}'
     no-time: '&cNo Time Left'
 
+Commands:
+  Default:
+    Usage: "/tw default <player>"
+    No-Time: "&8[&bTimedWings&8] &7Flight: Time &cNo Time Left"
+    Time-Left: "&8[&bTimedWings&8] &7Flight Time: &e%time-left%"
+
+  Help:
+    Message:
+      - "&3TimedWings Command List;"
+      - "&6/tw default <player>"
+      - "&6/tw help"
+      - "&6/tw reload"
+      - "&6/tw toggle"
+      - "&6/tw toggle <player>"
+      - "&6/tw version"
+      -
+  Give:
+    Usage: "&cUsage: /tw give <player> <seconds>"
+    Player-Not-Found: "&8[&bTimedWings&8] &cPlayer not found."
+    Invalid-Amount: "&8[&bTimedWings&8] &cInvalid amount of seconds."
+    Success: "&8[&bTimedWings&8] &aGave &e%seconds%s &aflight time to &e%player%&a."
+
+  Set:
+    Usage: "&cUsage: /tw set <player> <seconds>"
+    Player-Not-Found: "&8[&bTimedWings&8] &cPlayer not found."
+    Invalid-Amount: "&8[&bTimedWings&8] &cInvalid amount of seconds."
+    Success: "&8[&bTimedWings&8] &aSet flight time of &e%player% &ato &e%seconds%s&a."
+
+  Check:
+    Usage: "&8[&bTimedWings&8] &cUsage: /tw check <player>"
+    Player-Not-Found: "&8[&bTimedWings&8] &cPlayer not found."
+    Format: "{h} {m} {s}"
+    Result: "&8[&bTimedWings&8] &7%player%'s flight time: &e%time%"
+
+  Clear:
+    Usage: "&cUsage: /tw clear <player>"
+    Player-Not-Found: "&8[&bTimedWings&8] &7Player not found."
+    Success: "&8[&bTimedWings&8] &7Cleared all flight time for &e%player%&c."
+
+
 
 Adapters:
   FabledSkyBlock:
-    Flight-Disabled: "&6TimedWings &8» &cYou don't have permission to fly in this island."
+    Flight-Disabled: "&8[&bTimedWings&8] &cYou don't have permission to fly in this island."
   WorldGuard:
-    Flight-Disabled: "&6TimedWings &8» &cYou don't have permission to fly in this region."
+    Flight-Disabled: "&8[&bTimedWings&8] &cYou don't have permission to fly in this region."
