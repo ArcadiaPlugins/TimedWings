@@ -11,6 +11,7 @@ public abstract class Command {
         this.plugin = plugin;
     }
 
+    public abstract boolean requiresPermission();
     public abstract void onPlayerCommand(Player player, String[] args);
 
     public abstract void onConsoleCommand(ConsoleCommandSender sender, String[] args);

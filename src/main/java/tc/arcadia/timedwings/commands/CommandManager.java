@@ -1,8 +1,8 @@
 package tc.arcadia.timedwings.commands;
 
+import tc.arcadia.timedwings.commands.player.*;
 import tc.arcadia.timedwings.manager.Manager;
 import tc.arcadia.timedwings.TimedWings;
-import tc.arcadia.timedwings.commands.player.GiveTimeCommand;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -14,7 +14,6 @@ import java.util.List;
 public class CommandManager extends Manager implements CommandExecutor, TabCompleter {
 
     private List<Command> playerCommands;
-    private List<Command> adminCommands;
     public CommandManager(TimedWings plugin) {
         super(plugin);
 
@@ -26,7 +25,11 @@ public class CommandManager extends Manager implements CommandExecutor, TabCompl
         pluginCommand.setTabCompleter(this);
 
         registerCommands(
-            new GiveTimeCommand(plugin)
+            new CheckCommand(plugin),
+            new ClearCommand(plugin),
+            new DefaultCommand(plugin),
+            new GiveCommand(plugin),
+            new SetCommand(plugin)
         );
     }
     public void registerCommand(Command command) {
@@ -41,25 +44,11 @@ public class CommandManager extends Manager implements CommandExecutor, TabCompl
             registerCommand(command);
         }
     }
-    public void registerAdminCommand(Command command) {
-        boolean exists = playerCommands.stream()
-                .anyMatch(c -> c.getName().equalsIgnoreCase(command.getName()));
-        if (!exists) {
-            adminCommands.add(command);
-        }
-    }
-    public void registerAdminCommands(Command... commands) {
-        for (Command command : commands) {
-            registerAdminCommand(command);
-        }
-    }
-
     @Override
     public boolean onCommand(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String s, @NotNull String[] args) {
 
         Player player = null;
         Command executedCommand = null;
-        boolean requiredPermission = false;
 
         if (sender instanceof Player) {
             player = (Player) sender;
@@ -71,30 +60,15 @@ public class CommandManager extends Manager implements CommandExecutor, TabCompl
                     .findFirst()
                     .orElse(null);
         }else{
-            if(args[0].equalsIgnoreCase("admin")){
-                requiredPermission = true;
-                if(args.length == 1){
-                    executedCommand = adminCommands.stream()
-                            .filter(c -> c.getName().equalsIgnoreCase("default"))
-                            .findFirst()
-                            .orElse(null);
-                }else{
-                    executedCommand = adminCommands.stream()
-                            .filter(c -> c.getName().equalsIgnoreCase(args[1]))
-                            .findFirst()
-                            .orElse(null);
-                }
-            }else{
-                executedCommand = playerCommands.stream()
-                        .filter(c -> c.getName().equalsIgnoreCase(args[0]))
-                        .findFirst()
-                        .orElse(null);
-            }
+            executedCommand = playerCommands.stream()
+                    .filter(c -> c.getName().equalsIgnoreCase(args[0]))
+                    .findFirst()
+                    .orElse(null);
         }
 
         if(executedCommand == null) return false;
 
-        if(requiredPermission && !sender.hasPermission("timedwings.command."+executedCommand.getName())) return false;
+        if(executedCommand.requiresPermission() && !sender.hasPermission("timedwings.command."+executedCommand.getName())) return false;
 
         if (player != null) {
             executedCommand.onPlayerCommand(player, args);
