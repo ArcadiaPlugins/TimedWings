@@ -8,6 +8,7 @@ import tc.arcadia.timedwings.TimedWings;
 import tc.arcadia.timedwings.commands.Command;
 import tc.arcadia.timedwings.language.LanguageManager;
 import tc.arcadia.timedwings.message.MessageManager;
+import tc.arcadia.timedwings.message.MessagePlaceholder;
 import tc.arcadia.timedwings.player.PlayerData;
 import tc.arcadia.timedwings.player.PlayerDataManager;
 import tc.arcadia.timedwings.utils.TextUtils;
@@ -30,19 +31,16 @@ public class GiveCommand extends Command {
 
     private void handleCommand(CommandSender sender, String[] args) {
         MessageManager messageManager = plugin.getMessageManager();
-        LanguageManager languageManager = plugin.getLanguageManager();
         PlayerDataManager playerDataManager = plugin.getPlayerDataManager();
 
         if (args.length < 2) {
-            String usage = languageManager.get(sender).getString("Commands.Give.Usage");
-            messageManager.sendMessage(sender, usage);
+            messageManager.sendLanguageMessage(sender, "Commands.Give.Usage");
             return;
         }
 
-        Player target = Bukkit.getPlayer(args[0]);
+        Player target = Bukkit.getPlayerExact(args[0]);
         if (target == null) {
-            String notFound = languageManager.get(sender).getString("Commands.Give.Player-Not-Found");
-            messageManager.sendMessage(sender, notFound);
+            messageManager.sendLanguageMessage(sender, "Commands.Give.Player-Not-Found");
             return;
         }
 
@@ -50,8 +48,7 @@ public class GiveCommand extends Command {
         try {
             seconds = Integer.parseInt(args[1]);
         } catch (NumberFormatException e) {
-            String invalid = languageManager.get(sender).getString("Commands.Give.Invalid-Amount");
-            messageManager.sendMessage(sender, invalid);
+            messageManager.sendLanguageMessage(sender, "Commands.Give.Invalid-Amount");
             return;
         }
 
@@ -59,10 +56,9 @@ public class GiveCommand extends Command {
         targetData.addFlightTime(seconds);
         targetData.save();
 
-        String success = languageManager.get(sender).getString("Commands.Give.Success")
-                .replace("%player%", target.getName())
-                .replace("%seconds%", String.valueOf(seconds));
-        messageManager.sendMessage(sender, success);
+        messageManager.sendLanguageMessage(sender,"Commands.Give.Success", new MessagePlaceholder()
+            .add("player", target.getName())
+            .add("seconds", String.valueOf(seconds)));
     }
 
     @Override

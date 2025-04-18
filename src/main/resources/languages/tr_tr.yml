@@ -22,13 +22,60 @@ action-bar:
 placeholder:
   timedwings_total_flight_time:
     time: '{y} {mo} {d} {h} {m} {s}'
-    no-time: '&cSüre Kalmadı'
+    no-time: '&cSüreniz kalmadı'
   timedwings_total_flight_time_seconds:
     time: '{time}'
-    no-time: '&cSüre Kalmadı'
+    no-time: '&cSüreniz kalmadı'
+
+Commands:
+  Default:
+    Usage: "/tw default <oyuncu>"
+    No-Time: "&8[&bTimedWings&8] &7Uçuş Süresi: &cSüre kalmadı"
+    Time-Left: "&8[&bTimedWings&8] &7Uçuş Süresi: &e%time-left%"
+    Format: "{h} {m} {s}"
+
+  Help:
+    Message:
+      - "&3TimedWings Komut Listesi;"
+      - "&6/tw default <oyuncu>"
+      - "&6/tw help"
+      - "&6/tw reload"
+      - "&6/tw toggle"
+      - "&6/tw toggle <oyuncu>"
+      - "&6/tw version"
+
+  Give:
+    Usage: "&cKullanım: /tw give <oyuncu> <saniye>"
+    Player-Not-Found: "&8[&bTimedWings&8] &cOyuncu bulunamadı."
+    Invalid-Amount: "&8[&bTimedWings&8] &cGeçersiz saniye miktarı."
+    Success: "&8[&bTimedWings&8] &e%player% &aoyuncusuna &e%seconds%s &asüre verildi."
+
+  Set:
+    Usage: "&cKullanım: /tw set <oyuncu> <saniye>"
+    Player-Not-Found: "&8[&bTimedWings&8] &cOyuncu bulunamadı."
+    Invalid-Amount: "&8[&bTimedWings&8] &cGeçersiz saniye miktarı."
+    Success: "&8[&bTimedWings&8] &e%player% &aoyuncusunun süresi &e%seconds%s &aolarak ayarlandı."
+
+  Check:
+    Usage: "&8[&bTimedWings&8] &cKullanım: /tw check <oyuncu>"
+    Player-Not-Found: "&8[&bTimedWings&8] &cOyuncu bulunamadı."
+    Format: "{h} {m} {s}"
+    Result: "&8[&bTimedWings&8] &7%player% oyuncusunun uçuş süresi: &e%time%"
+
+  Clear:
+    Usage: "&cKullanım: /tw clear <oyuncu>"
+    Player-Not-Found: "&8[&bTimedWings&8] &7Oyuncu bulunamadı."
+    Success: "&8[&bTimedWings&8] &7%player% oyuncusunun uçuş süresi sıfırlandı."
+
+  Migrate:
+    Usage: "&cKullanım: /tw migrate"
+    Console-Only: "&8[&bTimedWings&8] &cBu komut sadece konsoldan çalıştırılabilir."
+    Available-Migrations: "&8[&bTimedWings&8] &7Kullanılabilir taşıyıcılar: %migrations%"
+    Success: "&8[&bTimedWings&8] &a%plugin% taşıması tamamlandı."
+    Failure: "&8[&bTimedWings&8] &c%plugin% taşıması başarısız oldu!"
 
 Adapters:
   FabledSkyBlock:
-    Flight-Disabled: "&6TimedWings &8» &cBu adada uçmak için izniniz yok."
+    Flight-Disabled: "&8[&bTimedWings&8] &cBu adada uçuş izniniz yok."
   WorldGuard:
-    Flight-Disabled: "&6TimedWings &8» &cBu alanda uçmak için izniniz yok."
+    Flight-Disabled: "&8[&bTimedWings&8] &cBu bölgede uçma izniniz yok."

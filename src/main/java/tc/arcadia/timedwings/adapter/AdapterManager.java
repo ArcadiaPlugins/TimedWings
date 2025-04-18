@@ -5,10 +5,7 @@ import tc.arcadia.timedwings.adapter.adapters.fabledskyblock.FabledSkyblockAdapt
 import tc.arcadia.timedwings.adapter.adapters.worldguard.WorldGuardAdapter;
 import tc.arcadia.timedwings.manager.Manager;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AdapterManager extends Manager {
 
@@ -44,9 +41,8 @@ public class AdapterManager extends Manager {
     }
 
     public void unregisterAdapter(TimedWingsAdapter adapter){
-        if(registeredAdapters.containsKey(adapter.getAdapterName())){
-            registeredAdapters.remove(adapter.getAdapterName());
-        }
+        adapter.unRegisterAdapter();
+        registeredAdapters.remove(adapter.getAdapterName());
     }
 
     public Map<String, TimedWingsAdapter> getRegisteredAdapters() {
@@ -54,6 +50,8 @@ public class AdapterManager extends Manager {
     }
 
     public void onDisable(){
-        registeredAdapters.values().forEach(this::unregisterAdapter);
+        for (TimedWingsAdapter adapter : new ArrayList<>(registeredAdapters.values())) {
+            unregisterAdapter(adapter);
+        }
     }
 }

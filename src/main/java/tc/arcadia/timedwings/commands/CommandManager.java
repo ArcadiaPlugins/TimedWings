@@ -1,5 +1,6 @@
 package tc.arcadia.timedwings.commands;
 
+import tc.arcadia.timedwings.commands.console.MigrateCommand;
 import tc.arcadia.timedwings.commands.player.*;
 import tc.arcadia.timedwings.manager.Manager;
 import tc.arcadia.timedwings.TimedWings;
@@ -9,7 +10,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CommandManager extends Manager implements CommandExecutor, TabCompleter {
 
@@ -29,7 +32,10 @@ public class CommandManager extends Manager implements CommandExecutor, TabCompl
             new ClearCommand(plugin),
             new DefaultCommand(plugin),
             new GiveCommand(plugin),
-            new SetCommand(plugin)
+            new SetCommand(plugin),
+
+            // Migrator
+            new MigrateCommand(plugin)
         );
     }
     public void registerCommand(Command command) {
@@ -70,16 +76,32 @@ public class CommandManager extends Manager implements CommandExecutor, TabCompl
 
         if(executedCommand.requiresPermission() && !sender.hasPermission("timedwings.command."+executedCommand.getName())) return false;
 
+        String[] argsWithoutCommand = args.length > 1 ? Arrays.copyOfRange(args, 1, args.length) : new String[0];
+
         if (player != null) {
-            executedCommand.onPlayerCommand(player, args);
+            executedCommand.onPlayerCommand(player, argsWithoutCommand);
         } else {
-            executedCommand.onConsoleCommand((ConsoleCommandSender) sender, args);
+            executedCommand.onConsoleCommand((ConsoleCommandSender) sender, argsWithoutCommand);
         }
         return true;
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, org.bukkit.command.@NotNull Command command, @NotNull String s, @NotNull String[] strings) {
-        return null;
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+        if(!(sender instanceof Player)) return null;
+
+        Player player = (Player) sender;
+        boolean hasFullPermission = player.hasPermission("timedwings.*") || player.hasPermission("timedwings.command.*");
+        List<String> returnList = new ArrayList<>();
+
+        if(strings.length == 1){
+             playerCommands.stream()
+                    .filter(c -> c.getName().startsWith(strings[0]) && (hasFullPermission || c.requiresPermission() && player.hasPermission("timedwings.command."+c.getName())))
+                    .map(Command::getName)
+                    .forEach(returnList::add);
+        }
+
+        returnList.remove("default");
+        return returnList;
     }
 }

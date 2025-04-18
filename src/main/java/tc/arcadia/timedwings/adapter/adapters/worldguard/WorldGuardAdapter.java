@@ -67,18 +67,19 @@ public class WorldGuardAdapter extends TimedWingsAdapter {
     @Override
     public void registerAdapterOnLoad() {
         FlagRegistry registry = WorldGuard.getInstance().getFlagRegistry();
-        try {
-            StateFlag flag = new StateFlag("timedwings-fly", true);
-            registry.register(flag);
-            timedWingsFlag = flag;
-            plugin.logger().info("(WorldGuard) Successfully registered custom flag: timedwings-fly");
-        } catch (FlagConflictException e) {
-            Flag<?> existing = registry.get("timedwings-fly");
-            if (existing instanceof StateFlag) {
-                timedWingsFlag = (StateFlag) existing;
-                plugin.logger().error("(WorldGuard) Flag 'timedwings-fly' already exists, using existing flag.");
-            } else {
-                plugin.logger().error("(WorldGuard) Conflict detected: 'timedwings-fly' is not a StateFlag. TimedWings integration may not work properly.");
+        Flag<?> existing = registry.get("timedwings-fly");
+
+        if (existing instanceof StateFlag) {
+            timedWingsFlag = (StateFlag) existing;
+            plugin.logger().info("(WorldGuard) Using existing flag: timedwings-fly");
+        } else {
+            try {
+                StateFlag flag = new StateFlag("timedwings-fly", true);
+                registry.register(flag);
+                timedWingsFlag = flag;
+                plugin.logger().info("(WorldGuard) Successfully registered custom flag: timedwings-fly");
+            } catch (FlagConflictException e) {
+                plugin.logger().error("(WorldGuard) Conflict detected while registering 'timedwings-fly'. TimedWings integration may not work properly.");
             }
         }
     }

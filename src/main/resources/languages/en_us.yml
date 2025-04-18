@@ -31,6 +31,7 @@ Commands:
     Usage: "/tw default <player>"
     No-Time: "&8[&bTimedWings&8] &7Flight: Time &cNo Time Left"
     Time-Left: "&8[&bTimedWings&8] &7Flight Time: &e%time-left%"
+    Format: "{h} {m} {s}"
 
   Help:
     Message:
@@ -41,7 +42,7 @@ Commands:
       - "&6/tw toggle"
       - "&6/tw toggle <player>"
       - "&6/tw version"
-      -
+
   Give:
     Usage: "&cUsage: /tw give <player> <seconds>"
     Player-Not-Found: "&8[&bTimedWings&8] &cPlayer not found."
@@ -64,6 +65,13 @@ Commands:
     Usage: "&cUsage: /tw clear <player>"
     Player-Not-Found: "&8[&bTimedWings&8] &7Player not found."
     Success: "&8[&bTimedWings&8] &7Cleared all flight time for &e%player%&c."
+
+  Migrate:
+    Usage: "&cUsage: /tw migrate &7| &cAvailable Migrations: &e%migrations%"
+    No-Migrations-Available: "&8[&bTimedWings&8] &7No migrations available."
+    Console-Only: "&8[&bTimedWings&8] &cThis command can only be used by the console."
+    Success: "&8[&bTimedWings&8] &a%plugin% migration completed."
+    Failure: "&8[&bTimedWings&8] &c%plugin% migration failed!"
 
 
 

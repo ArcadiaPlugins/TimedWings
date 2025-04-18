@@ -33,13 +33,15 @@ public class DefaultCommand extends Command {
         }
         PlayerData playerData = playerDataManager.getPlayerData(player.getUniqueId());
 
+        String timeFormat = languageManager.get(player).getString("Commands.Default.Format", "{h} {m} {s}");
         String message;
         if (playerData.getRemainingFlightTime() > 0) {
             message = languageManager.get(player).getString("Commands.Default.Time-Left");
         } else {
             message = languageManager.get(player).getString("Commands.Default.No-Time");
         }
-        message = message.replace("%time-left%", TextUtils.formatDuration(message, playerData.getRemainingFlightTime(), player));
+        String formattedTime = TextUtils.formatDuration(timeFormat, playerData.getRemainingFlightTime(), player);
+        message = message.replace("%time-left%", formattedTime);
         messageManager.sendMessage(player, message);
     }
 
