@@ -1,10 +1,12 @@
 package tc.arcadia.timedwings;
 
 import tc.arcadia.timedwings.actionbar.ActionBarManager;
+import tc.arcadia.timedwings.commands.CommandManager;
 import tc.arcadia.timedwings.flight.FlightManager;
 import tc.arcadia.timedwings.listeners.PlayerListeners;
 import tc.arcadia.timedwings.logger.Logger;
 import tc.arcadia.timedwings.message.MessageManager;
+import tc.arcadia.timedwings.migrate.MigrationManager;
 import tc.arcadia.timedwings.placeholder.PlaceholderManager;
 import tc.arcadia.timedwings.player.PlayerDataManager;
 import tc.arcadia.timedwings.adapter.AdapterManager;
@@ -28,6 +30,8 @@ public class TimedWings extends JavaPlugin {
     private MessageManager messageManager;
     private StorageManager storageManager;
     private LanguageManager languageManager;
+    private MigrationManager migrationManager;
+    private CommandManager commandManager;
     private Logger logger;
     private FileConfiguration config;
 
@@ -64,6 +68,10 @@ public class TimedWings extends JavaPlugin {
 
         placeholderManager = new PlaceholderManager(this);
         placeholderManager.registerPlaceholders();
+
+        migrationManager = new MigrationManager(this);
+
+        commandManager = new CommandManager(this);
 
 //        adapterManager = new AdapterManager(this);
         adapterManager.onEnable();
@@ -134,6 +142,10 @@ public class TimedWings extends JavaPlugin {
 
     public StorageManager getStorageManager() {
         return storageManager;
+    }
+
+    public MigrationManager getMigrationManager() {
+        return migrationManager;
     }
 
     public Logger logger() {
