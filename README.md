@@ -70,7 +70,7 @@ TimedWings can be added to your project via [JitPack](https://jitpack.io/#Arcadi
 <dependency>
   <groupId>com.github.ArcadiaPlugins</groupId>
   <artifactId>TimedWings</artifactId>
-  <version>1.0.0</version> <!-- Replace with latest tag -->
+  <version>latest</version> <!-- Replace latest tag with latest released TimedWings version -->
 </dependency>
 ```
 
@@ -82,11 +82,11 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.ArcadiaPlugins:TimedWings:1.0.0' // Replace with latest tag
+    implementation 'com.github.ArcadiaPlugins:TimedWings:latest' // Replace with latest tag
 }
 ```
 
-> 🧪 Tip: You can replace `1.0.0` with a specific tag or commit hash
+> 🧪 Tip: You can replace `latest` with a specific tag or commit hash
 
 ---
 
