@@ -15,6 +15,7 @@ general:
 
 action-bar:
   message: "&eUçuş Modu: %flightmode% &8| &6Kalan Uçuş Süresi: &e%duration%"
+  infinite: "&b&lSonsuz"
   flight-mode:
     enabled: "&a&lAçık"
     disabled: "&c&lKapalı"
@@ -28,6 +29,8 @@ placeholder:
     no-time: '&cSüreniz kalmadı'
 
 Commands:
+  Console-Only: "&8[&bTimedWings&8] &cBu komut konsol için kullanılamaz."
+
   Default:
     Usage: "/tw default <oyuncu>"
     No-Time: "&8[&bTimedWings&8] &7Uçuş Süresi: &cSüre kalmadı"
@@ -67,10 +70,13 @@ Commands:
     Player-Not-Found: "&8[&bTimedWings&8] &7Oyuncu bulunamadı."
     Success: "&8[&bTimedWings&8] &7%player% oyuncusunun uçuş süresi sıfırlandı."
 
+  Reload:
+    Success: "&8[&bTimedWings&8] &aYapılandırma başarıyla yeniden yüklendi."
+
   Migrate:
-    Usage: "&cKullanım: /tw migrate"
+    Usage: "&cKullanım: /tw migrate &7| &cKullanılabilir Taşıyıcılar: &e%migrations%"
+    No-Migrations-Available: "&8[&bTimedWings&8] &7Kullanılabilir taşıyıcı yok."
     Console-Only: "&8[&bTimedWings&8] &cBu komut sadece konsoldan çalıştırılabilir."
-    Available-Migrations: "&8[&bTimedWings&8] &7Kullanılabilir taşıyıcılar: %migrations%"
     Success: "&8[&bTimedWings&8] &a%plugin% taşıması tamamlandı."
     Failure: "&8[&bTimedWings&8] &c%plugin% taşıması başarısız oldu!"
 

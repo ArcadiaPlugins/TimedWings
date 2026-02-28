@@ -31,8 +31,27 @@ public class LanguageManager extends Manager {
         }
         File file = new File(plugin.getDataFolder(), "languages");
         if(!file.exists()) file.mkdirs();
-        for(File languageFile : file.listFiles()){
+        File[] languageFiles = file.listFiles();
+        if(languageFiles == null) return;
+        for(File languageFile : languageFiles){
             plugin.logger().info("Loading language file: "+languageFile.getName().replace(".yml", ""));
+            FileConfiguration config = YamlConfiguration.loadConfiguration(languageFile);
+            try {
+                languages.put(languageFile.getName().replace(".yml", ""), config);
+            }catch (Exception e){
+                plugin.logger().error("Error while loading language file: "+languageFile.getName());
+            }
+        }
+    }
+
+    public void reload() {
+        languages.clear();
+        File file = new File(plugin.getDataFolder(), "languages");
+        if(!file.exists()) file.mkdirs();
+        File[] languageFiles = file.listFiles();
+        if(languageFiles == null) return;
+        for(File languageFile : languageFiles){
+            plugin.logger().info("Reloading language file: "+languageFile.getName().replace(".yml", ""));
             FileConfiguration config = YamlConfiguration.loadConfiguration(languageFile);
             try {
                 languages.put(languageFile.getName().replace(".yml", ""), config);
@@ -54,7 +73,9 @@ public class LanguageManager extends Manager {
         if(player != null && autoDetectLanguage){
             if(languages.containsKey(player.getLocale())) language = player.getLocale();
         }
-        return languages.get(language);
+        FileConfiguration config = languages.get(language);
+        if (config == null) config = languages.get(defaultLanguage);
+        return config;
     }
 
 

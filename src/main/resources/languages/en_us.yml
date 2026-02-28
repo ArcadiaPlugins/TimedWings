@@ -28,6 +28,8 @@ placeholder:
     no-time: '&cNo Time Left'
 
 Commands:
+  Console-Only: "&8[&bTimedWings&8] &cThis command is not available for the console."
+
   Default:
     Usage: "/tw default <player>"
     No-Time: "&8[&bTimedWings&8] &7Flight: Time &cNo Time Left"
@@ -66,6 +68,9 @@ Commands:
     Usage: "&cUsage: /tw clear <player>"
     Player-Not-Found: "&8[&bTimedWings&8] &7Player not found."
     Success: "&8[&bTimedWings&8] &7Cleared all flight time for &e%player%&c."
+
+  Reload:
+    Success: "&8[&bTimedWings&8] &aConfiguration reloaded successfully."
 
   Migrate:
     Usage: "&cUsage: /tw migrate &7| &cAvailable Migrations: &e%migrations%"

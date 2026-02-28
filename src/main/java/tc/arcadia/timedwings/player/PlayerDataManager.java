@@ -7,13 +7,13 @@ import tc.arcadia.timedwings.storage.StorageProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerDataManager extends Manager {
 
-    private final Map<UUID,PlayerData> cachedPlayers = new HashMap<>();
+    private final Map<UUID,PlayerData> cachedPlayers = new ConcurrentHashMap<>();
     public PlayerDataManager(TimedWings plugin) {
         super(plugin);
 
@@ -60,6 +60,7 @@ public class PlayerDataManager extends Manager {
     }
     public void unloadPlayerData(Player player){
         plugin.logger().debug("Unloading player data by Player: "+player.getName());
+        unloadPlayerData(player.getUniqueId());
     }
 
     /*

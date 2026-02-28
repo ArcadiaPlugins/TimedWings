@@ -44,4 +44,9 @@ public class StorageManager {
         return storageProvider;
     }
 
+    public void onDisable() {
+        if (storageProvider != null) {
+            storageProvider.close();
+        }
+    }
 }

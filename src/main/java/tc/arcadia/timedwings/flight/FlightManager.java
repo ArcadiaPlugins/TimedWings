@@ -25,11 +25,11 @@ public class FlightManager extends Manager {
     }
 
     public void initializeData(){
-        this.durationFormat = plugin.getConfiguration().getString("general.action-bar.duration-format");
+        this.durationFormat = plugin.getConfiguration().getString("general.action-bar.duration-format", "{h} {m} {s}");
     }
 
     public void startFlightCheckTask(){
-        flightCheckTask = plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, () -> {
+        flightCheckTask = plugin.getServer().getScheduler().runTaskTimer(plugin, () -> {
             for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 handleFlyingPlayer(player);
             }

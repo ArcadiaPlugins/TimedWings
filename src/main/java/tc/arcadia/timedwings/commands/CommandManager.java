@@ -33,6 +33,7 @@ public class CommandManager extends Manager implements CommandExecutor, TabCompl
             new DefaultCommand(plugin),
             new GiveCommand(plugin),
             new SetCommand(plugin),
+            new ReloadCommand(plugin),
 
             // Migrator
             new MigrateCommand(plugin)
@@ -96,7 +97,7 @@ public class CommandManager extends Manager implements CommandExecutor, TabCompl
 
         if(strings.length == 1){
              playerCommands.stream()
-                    .filter(c -> c.getName().startsWith(strings[0]) && (hasFullPermission || c.requiresPermission() && player.hasPermission("timedwings.command."+c.getName())))
+                    .filter(c -> c.getName().startsWith(strings[0]) && (hasFullPermission || !c.requiresPermission() || player.hasPermission("timedwings.command."+c.getName())))
                     .map(Command::getName)
                     .forEach(returnList::add);
         }

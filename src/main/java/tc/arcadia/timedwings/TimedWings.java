@@ -86,6 +86,7 @@ public class TimedWings extends JavaPlugin {
     public void onDisable(){
         configManager.onDisable();
         playerDataManager.onDisable();
+        storageManager.onDisable();
         flightManager.onDisable();
         adapterManager.onDisable();
         placeholderManager.unregisterPlaceholders();
