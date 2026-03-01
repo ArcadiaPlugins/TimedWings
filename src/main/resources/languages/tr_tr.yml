@@ -40,12 +40,25 @@ Commands:
   Help:
     Message:
       - "&3TimedWings Komut Listesi;"
-      - "&6/tw default <oyuncu>"
-      - "&6/tw help"
-      - "&6/tw reload"
-      - "&6/tw toggle"
-      - "&6/tw toggle <oyuncu>"
-      - "&6/tw version"
+      - "&6/tw &7- Uçuş sürenizi gösterir"
+      - "&6/tw help &7- Bu yardımı gösterir"
+      - "&6/tw check <oyuncu> &7- Oyuncunun uçuş süresini kontrol et"
+      - "&6/tw give <oyuncu> <saniye> &7- Uçuş süresi ver"
+      - "&6/tw set <oyuncu> <saniye> &7- Uçuş süresini ayarla"
+      - "&6/tw clear <oyuncu> &7- Uçuş süresini sıfırla"
+      - "&6/tw toggle [oyuncu] &7- Uçuş modunu aç/kapat"
+      - "&6/tw reload &7- Yapılandırmayı yeniden yükle"
+      - "&6/tw version &7- Eklenti sürümünü göster"
+
+  Version:
+    Message: "&8[&bTimedWings&8] &7Çalışan sürüm: &e%version%"
+
+  Toggle:
+    Usage: "&cKullanım: /tw toggle [oyuncu]"
+    Player-Not-Found: "&8[&bTimedWings&8] &cOyuncu bulunamadı."
+    No-Time: "&8[&bTimedWings&8] &cKalan uçuş süresi yok."
+    Enabled: "&8[&bTimedWings&8] &e%player% &aiçin uçuş açıldı."
+    Disabled: "&8[&bTimedWings&8] &e%player% &ciçin uçuş kapatıldı."
 
   Give:
     Usage: "&cKullanım: /tw give <oyuncu> <saniye>"

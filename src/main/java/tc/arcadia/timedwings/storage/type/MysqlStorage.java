@@ -1,5 +1,7 @@
 package tc.arcadia.timedwings.storage.type;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import tc.arcadia.timedwings.TimedWings;
 import tc.arcadia.timedwings.player.PlayerData;
 import tc.arcadia.timedwings.storage.StorageProvider;
@@ -9,7 +11,7 @@ import java.sql.*;
 import java.util.UUID;
 
 public class MysqlStorage extends StorageProvider {
-    private Connection connection;
+    private HikariDataSource dataSource;
 
     public MysqlStorage(TimedWings plugin) {
         super(plugin);
@@ -18,7 +20,6 @@ public class MysqlStorage extends StorageProvider {
 
     @Override
     public void setup() {
-        // MySQL bağlantı verileri (isteğe göre config dosyasından alınabilir)
         String host = plugin.getConfiguration().getString("general.storage.mysql.host");
         String port = plugin.getConfiguration().getString("general.storage.mysql.port");
         String database = plugin.getConfiguration().getString("general.storage.mysql.database");
@@ -28,8 +29,21 @@ public class MysqlStorage extends StorageProvider {
         String url = "jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=false&autoReconnect=true";
 
         try {
-            connection = DriverManager.getConnection(url, username, password);
-            try (Statement stmt = connection.createStatement()) {
+            HikariConfig config = new HikariConfig();
+            config.setJdbcUrl(url);
+            config.setUsername(username);
+            config.setPassword(password);
+            config.setMaximumPoolSize(10);
+            config.setMinimumIdle(2);
+            config.setIdleTimeout(300000);
+            config.setMaxLifetime(600000);
+            config.setConnectionTimeout(10000);
+            config.setPoolName("TimedWings-MySQL");
+
+            dataSource = new HikariDataSource(config);
+
+            try (Connection connection = dataSource.getConnection();
+                 Statement stmt = connection.createStatement()) {
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS timedwings_player_data (" +
                         "uuid VARCHAR(36) PRIMARY KEY, " +
                         "used_flight_time INT, " +
@@ -45,7 +59,8 @@ public class MysqlStorage extends StorageProvider {
 
     @Override
     public boolean savePlayerData(PlayerData playerData) {
-        try (PreparedStatement stmt = connection.prepareStatement(
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO timedwings_player_data (uuid, used_flight_time, remaining_flight_time) " +
                         "VALUES (?, ?, ?) " +
                         "ON DUPLICATE KEY UPDATE " +
@@ -70,7 +85,8 @@ public class MysqlStorage extends StorageProvider {
 
     @Override
     public PlayerData loadPlayerData(UUID playerUUID) {
-        try (PreparedStatement stmt = connection.prepareStatement(
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(
                 "SELECT used_flight_time, remaining_flight_time FROM timedwings_player_data WHERE uuid = ?"
         )) {
             stmt.setString(1, playerUUID.toString());
@@ -90,11 +106,8 @@ public class MysqlStorage extends StorageProvider {
 
     @Override
     public void close() {
-        try {
-            if (connection != null && !connection.isClosed())
-                connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (dataSource != null && !dataSource.isClosed()) {
+            dataSource.close();
         }
     }
 }

@@ -34,6 +34,7 @@ permissions:
       timedwings.command.clear: true
       timedwings.command.migrate: true
       timedwings.command.reload: true
+      timedwings.command.toggle: true
   timedwings.command.check:
     description: Allows checking a player's flight time
     default: op
@@ -51,6 +52,9 @@ permissions:
     default: op
   timedwings.command.reload:
     description: Allows reloading the plugin configuration
+    default: op
+  timedwings.command.toggle:
+    description: Allows toggling flight mode
     default: op
   timedwings.unlimited:
     description: Grants unlimited flight time

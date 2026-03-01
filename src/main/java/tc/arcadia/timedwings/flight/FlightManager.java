@@ -10,6 +10,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.util.List;
+
 public class FlightManager extends Manager {
 
     private final PlayerDataManager playerDataManager;
@@ -40,13 +42,24 @@ public class FlightManager extends Manager {
         if (flightCheckTask != null) flightCheckTask.cancel();
     }
 
+    private boolean hasUnlimitedFlight(Player player) {
+        List<String> unlimitedPermissions = plugin.getConfiguration().getStringList("general.permissions");
+        for (String permission : unlimitedPermissions) {
+            if (player.hasPermission(permission)) return true;
+        }
+        return false;
+    }
+
     public void handleFlyingPlayer(Player player){
         if (!playerDataManager.hasPlayerData(player)) return;
         PlayerData playerData = playerDataManager.getPlayerData(player);
         if(plugin.getConfiguration().getStringList("general.disabled-worlds").contains(player.getWorld().getName())) return;
 
+        boolean unlimited = hasUnlimitedFlight(player);
 
-        if(player.isFlying()){
+        if (unlimited) {
+            if (!player.getAllowFlight()) player.setAllowFlight(true);
+        } else if(player.isFlying()){
             if (!plugin.getAdapterManager().getRegisteredAdapters().isEmpty()) {
                 for (TimedWingsAdapter adapter : plugin.getAdapterManager().getRegisteredAdapters().values()) {
                     if (!adapter.canFly(player)) {
@@ -85,9 +98,13 @@ public class FlightManager extends Manager {
         if (plugin.getConfiguration().getBoolean("general.action-bar.enabled")) {
             if(plugin.getConfiguration().getBoolean("general.action-bar.always-display") || player.isFlying()){
                 String actionBarMessage = plugin.getLanguageManager().get(player).getString("action-bar.message");
-                String durationFormat = this.durationFormat;
 
-                String formattedDuration = TextUtils.formatDuration(durationFormat, playerData.getRemainingFlightTime(),player);
+                String formattedDuration;
+                if (unlimited) {
+                    formattedDuration = plugin.getLanguageManager().get(player).getString("action-bar.infinite", "&b&lInfinite");
+                } else {
+                    formattedDuration = TextUtils.formatDuration(this.durationFormat, playerData.getRemainingFlightTime(), player);
+                }
                 actionBarMessage = actionBarMessage.replace("%duration%", formattedDuration);
 
                 if(player.getAllowFlight()){

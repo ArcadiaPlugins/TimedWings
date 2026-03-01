@@ -34,6 +34,9 @@ public class CommandManager extends Manager implements CommandExecutor, TabCompl
             new GiveCommand(plugin),
             new SetCommand(plugin),
             new ReloadCommand(plugin),
+            new HelpCommand(plugin),
+            new VersionCommand(plugin),
+            new ToggleCommand(plugin),
 
             // Migrator
             new MigrateCommand(plugin)

@@ -1,6 +1,7 @@
 package tc.arcadia.timedwings.commands.player;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -11,7 +12,6 @@ import tc.arcadia.timedwings.message.MessageManager;
 import tc.arcadia.timedwings.message.MessagePlaceholder;
 import tc.arcadia.timedwings.player.PlayerData;
 import tc.arcadia.timedwings.player.PlayerDataManager;
-import tc.arcadia.timedwings.utils.TextUtils;
 
 public class GiveCommand extends Command {
 
@@ -38,12 +38,6 @@ public class GiveCommand extends Command {
             return;
         }
 
-        Player target = Bukkit.getPlayerExact(args[0]);
-        if (target == null) {
-            messageManager.sendLanguageMessage(sender, "Commands.Give.Player-Not-Found");
-            return;
-        }
-
         int seconds;
         try {
             seconds = Integer.parseInt(args[1]);
@@ -52,13 +46,29 @@ public class GiveCommand extends Command {
             return;
         }
 
-        PlayerData targetData = playerDataManager.getPlayerData(target.getUniqueId());
-        targetData.addFlightTime(seconds);
-        targetData.save();
-
-        messageManager.sendLanguageMessage(sender,"Commands.Give.Success", new MessagePlaceholder()
-            .add("player", target.getName())
-            .add("seconds", String.valueOf(seconds)));
+        // Try online first, then offline
+        Player onlineTarget = Bukkit.getPlayerExact(args[0]);
+        if (onlineTarget != null) {
+            PlayerData targetData = playerDataManager.getPlayerData(onlineTarget.getUniqueId());
+            targetData.addFlightTime(seconds);
+            targetData.save();
+            messageManager.sendLanguageMessage(sender, "Commands.Give.Success", new MessagePlaceholder()
+                    .add("player", onlineTarget.getName())
+                    .add("seconds", String.valueOf(seconds)));
+        } else {
+            @SuppressWarnings("deprecation")
+            OfflinePlayer offlineTarget = Bukkit.getOfflinePlayer(args[0]);
+            if (!offlineTarget.hasPlayedBefore()) {
+                messageManager.sendLanguageMessage(sender, "Commands.Give.Player-Not-Found");
+                return;
+            }
+            PlayerData targetData = plugin.getStorageManager().getStorageProvider().loadPlayerData(offlineTarget.getUniqueId());
+            targetData.addFlightTime(seconds);
+            targetData.save();
+            messageManager.sendLanguageMessage(sender, "Commands.Give.Success", new MessagePlaceholder()
+                    .add("player", offlineTarget.getName() != null ? offlineTarget.getName() : args[0])
+                    .add("seconds", String.valueOf(seconds)));
+        }
     }
 
     @Override

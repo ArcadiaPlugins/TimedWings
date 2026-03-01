@@ -1,6 +1,7 @@
 package tc.arcadia.timedwings.commands.player;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -37,12 +38,6 @@ public class SetCommand extends Command {
             return;
         }
 
-        Player target = Bukkit.getPlayer(args[0]);
-        if (target == null) {
-            messageManager.sendMessage(sender, languageManager.get(sender).getString("Commands.Set.Player-Not-Found"));
-            return;
-        }
-
         int seconds;
         try {
             seconds = Integer.parseInt(args[1]);
@@ -51,12 +46,29 @@ public class SetCommand extends Command {
             return;
         }
 
-        PlayerData targetData = playerDataManager.getPlayerData(target.getUniqueId());
+        Player onlineTarget = Bukkit.getPlayer(args[0]);
+        String targetName;
+        PlayerData targetData;
+
+        if (onlineTarget != null) {
+            targetData = playerDataManager.getPlayerData(onlineTarget.getUniqueId());
+            targetName = onlineTarget.getName();
+        } else {
+            @SuppressWarnings("deprecation")
+            OfflinePlayer offlineTarget = Bukkit.getOfflinePlayer(args[0]);
+            if (!offlineTarget.hasPlayedBefore()) {
+                messageManager.sendMessage(sender, languageManager.get(sender).getString("Commands.Set.Player-Not-Found"));
+                return;
+            }
+            targetData = plugin.getStorageManager().getStorageProvider().loadPlayerData(offlineTarget.getUniqueId());
+            targetName = offlineTarget.getName() != null ? offlineTarget.getName() : args[0];
+        }
+
         targetData.setRemainingFlightTime(seconds);
         targetData.save();
 
         String success = languageManager.get(sender).getString("Commands.Set.Success")
-                .replace("%player%", target.getName())
+                .replace("%player%", targetName)
                 .replace("%seconds%", String.valueOf(seconds));
         messageManager.sendMessage(sender, success);
     }

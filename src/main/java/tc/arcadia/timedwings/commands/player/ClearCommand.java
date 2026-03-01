@@ -1,6 +1,7 @@
 package tc.arcadia.timedwings.commands.player;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -37,18 +38,29 @@ public class ClearCommand extends Command {
             return;
         }
 
-        Player target = Bukkit.getPlayer(args[0]);
-        if (target == null) {
-            messageManager.sendMessage(sender, languageManager.get(sender).getString("Commands.Clear.Player-Not-Found"));
-            return;
+        Player onlineTarget = Bukkit.getPlayer(args[0]);
+        String targetName;
+        PlayerData data;
+
+        if (onlineTarget != null) {
+            data = playerDataManager.getPlayerData(onlineTarget.getUniqueId());
+            targetName = onlineTarget.getName();
+        } else {
+            @SuppressWarnings("deprecation")
+            OfflinePlayer offlineTarget = Bukkit.getOfflinePlayer(args[0]);
+            if (!offlineTarget.hasPlayedBefore()) {
+                messageManager.sendMessage(sender, languageManager.get(sender).getString("Commands.Clear.Player-Not-Found"));
+                return;
+            }
+            data = plugin.getStorageManager().getStorageProvider().loadPlayerData(offlineTarget.getUniqueId());
+            targetName = offlineTarget.getName() != null ? offlineTarget.getName() : args[0];
         }
 
-        PlayerData data = playerDataManager.getPlayerData(target.getUniqueId());
         data.setRemainingFlightTime(0);
         data.save();
 
         String message = languageManager.get(sender).getString("Commands.Clear.Success")
-                .replace("%player%", target.getName());
+                .replace("%player%", targetName);
         messageManager.sendMessage(sender, message);
     }
 

@@ -41,6 +41,10 @@
                                     <pattern>org.bstats</pattern>
                                     <shadedPattern>tc.arcadia.timedwings.libs.bstats</shadedPattern>
                                 </relocation>
+                                <relocation>
+                                    <pattern>com.zaxxer.hikari</pattern>
+                                    <shadedPattern>tc.arcadia.timedwings.libs.hikari</shadedPattern>
+                                </relocation>
                             </relocations>
                             <filters>
                                 <filter>
@@ -219,6 +223,16 @@
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
             <version>3.0.2</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--
+            HikariCP
+        -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>5.1.0</version>
             <scope>compile</scope>
         </dependency>
 

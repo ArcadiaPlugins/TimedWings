@@ -39,12 +39,25 @@ Commands:
   Help:
     Message:
       - "&3TimedWings Command List;"
-      - "&6/tw default <player>"
-      - "&6/tw help"
-      - "&6/tw reload"
-      - "&6/tw toggle"
-      - "&6/tw toggle <player>"
-      - "&6/tw version"
+      - "&6/tw &7- Show your flight time"
+      - "&6/tw help &7- Show this help"
+      - "&6/tw check <player> &7- Check a player's flight time"
+      - "&6/tw give <player> <seconds> &7- Give flight time"
+      - "&6/tw set <player> <seconds> &7- Set flight time"
+      - "&6/tw clear <player> &7- Clear flight time"
+      - "&6/tw toggle [player] &7- Toggle flight mode"
+      - "&6/tw reload &7- Reload configuration"
+      - "&6/tw version &7- Show plugin version"
+
+  Version:
+    Message: "&8[&bTimedWings&8] &7Running version &e%version%"
+
+  Toggle:
+    Usage: "&cUsage: /tw toggle [player]"
+    Player-Not-Found: "&8[&bTimedWings&8] &cPlayer not found."
+    No-Time: "&8[&bTimedWings&8] &cNo flight time remaining."
+    Enabled: "&8[&bTimedWings&8] &aFlight enabled for &e%player%&a."
+    Disabled: "&8[&bTimedWings&8] &cFlight disabled for &e%player%&c."
 
   Give:
     Usage: "&cUsage: /tw give <player> <seconds>"
