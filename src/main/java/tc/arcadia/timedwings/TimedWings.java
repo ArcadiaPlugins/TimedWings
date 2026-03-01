@@ -13,6 +13,8 @@ import tc.arcadia.timedwings.adapter.AdapterManager;
 import tc.arcadia.timedwings.config.ConfigManager;
 import tc.arcadia.timedwings.language.LanguageManager;
 import tc.arcadia.timedwings.storage.StorageManager;
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -77,6 +79,10 @@ public class TimedWings extends JavaPlugin {
         adapterManager.onEnable();
 
         Bukkit.getPluginManager().registerEvents(new PlayerListeners(this),this);
+
+        // bStats
+        Metrics metrics = new Metrics(this, 29841);
+        metrics.addCustomChart(new SimplePie("storage_type", () -> storageManager.getStorageType().name().toLowerCase()));
 
         logger.log("TimedWings plugin has been successfully enabled on version "+getDescription().getVersion());
     }
