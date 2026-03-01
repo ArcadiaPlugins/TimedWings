@@ -16,3 +16,42 @@ commands:
       - tw
       - tempfly
       - tfly
+
+permissions:
+  timedwings.*:
+    description: Grants all TimedWings permissions
+    default: op
+    children:
+      timedwings.command.*: true
+      timedwings.unlimited: true
+  timedwings.command.*:
+    description: Grants all TimedWings command permissions
+    default: op
+    children:
+      timedwings.command.check: true
+      timedwings.command.give: true
+      timedwings.command.set: true
+      timedwings.command.clear: true
+      timedwings.command.migrate: true
+      timedwings.command.reload: true
+  timedwings.command.check:
+    description: Allows checking a player's flight time
+    default: op
+  timedwings.command.give:
+    description: Allows giving flight time to a player
+    default: op
+  timedwings.command.set:
+    description: Allows setting a player's flight time
+    default: op
+  timedwings.command.clear:
+    description: Allows clearing a player's flight time
+    default: op
+  timedwings.command.migrate:
+    description: Allows running data migrations
+    default: op
+  timedwings.command.reload:
+    description: Allows reloading the plugin configuration
+    default: op
+  timedwings.unlimited:
+    description: Grants unlimited flight time
+    default: false

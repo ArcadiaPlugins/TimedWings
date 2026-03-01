@@ -23,12 +23,13 @@ public class SqliteStorage extends StorageProvider {
             File dbFile = new File(plugin.getDataFolder(), "timedwings_sqlite.db");
             connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile.getAbsolutePath());
 
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS timedwings_player_data (" +
-                    "uuid TEXT PRIMARY KEY, " +
-                    "used_flight_time INTEGER, " +
-                    "remaining_flight_time INTEGER" +
-                    ")");
+            try (Statement stmt = connection.createStatement()) {
+                stmt.executeUpdate("CREATE TABLE IF NOT EXISTS timedwings_player_data (" +
+                        "uuid TEXT PRIMARY KEY, " +
+                        "used_flight_time INTEGER, " +
+                        "remaining_flight_time INTEGER" +
+                        ")");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -36,12 +37,11 @@ public class SqliteStorage extends StorageProvider {
 
     @Override
     public boolean savePlayerData(PlayerData playerData) {
-        try {
-            PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO timedwings_player_data (uuid, used_flight_time, remaining_flight_time) " +
-                            "VALUES (?, ?, ?) " +
-                            "ON CONFLICT(uuid) DO UPDATE SET used_flight_time = excluded.used_flight_time, remaining_flight_time = excluded.remaining_flight_time;"
-            );
+        try (PreparedStatement stmt = connection.prepareStatement(
+                "INSERT INTO timedwings_player_data (uuid, used_flight_time, remaining_flight_time) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON CONFLICT(uuid) DO UPDATE SET used_flight_time = excluded.used_flight_time, remaining_flight_time = excluded.remaining_flight_time;"
+        )) {
             stmt.setString(1, playerData.getPlayerUUID().toString());
             stmt.setInt(2, playerData.getUsedFlightTime());
             stmt.setInt(3, playerData.getRemainingFlightTime());
@@ -60,20 +60,18 @@ public class SqliteStorage extends StorageProvider {
 
     @Override
     public PlayerData loadPlayerData(UUID playerUUID) {
-        try {
-            PreparedStatement stmt = connection.prepareStatement(
-                    "SELECT used_flight_time, remaining_flight_time FROM timedwings_player_data WHERE uuid = ?"
-            );
+        try (PreparedStatement stmt = connection.prepareStatement(
+                "SELECT used_flight_time, remaining_flight_time FROM timedwings_player_data WHERE uuid = ?"
+        )) {
             stmt.setString(1, playerUUID.toString());
-            ResultSet rs = stmt.executeQuery();
-
-            PlayerData playerData = new PlayerData(playerUUID);
-            if (rs.next()) {
-                playerData.setUsedFlightTime(rs.getInt("used_flight_time"));
-                playerData.setRemainingFlightTime(rs.getInt("remaining_flight_time"));
+            try (ResultSet rs = stmt.executeQuery()) {
+                PlayerData playerData = new PlayerData(playerUUID);
+                if (rs.next()) {
+                    playerData.setUsedFlightTime(rs.getInt("used_flight_time"));
+                    playerData.setRemainingFlightTime(rs.getInt("remaining_flight_time"));
+                }
+                return playerData;
             }
-            return playerData;
-
         } catch (SQLException e) {
             e.printStackTrace();
             return new PlayerData(playerUUID);

@@ -22,14 +22,15 @@ public abstract class ActionBar extends Manager {
                 }
             }.runTaskLater(plugin, duration + 1);
         }
-        while (duration > 40) {
-            duration -= 40;
+        int totalTicks = duration;
+        for (int tick = 40; tick < totalTicks; tick += 40) {
+            int delay = tick;
             new BukkitRunnable() {
                 @Override
                 public void run() {
                     sendActionBar(player, message);
                 }
-            }.runTaskLater(plugin, (long) duration);
+            }.runTaskLater(plugin, delay);
         }
     }
 

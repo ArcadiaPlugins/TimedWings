@@ -41,8 +41,9 @@ public class PlaceholderManager extends Manager {
         PlayerData playerData = playerDataManager.getPlayerData(player);
 
         FileConfiguration language = plugin.getLanguageManager().get(player);
+        if (language == null) return "";
 
-        String returnValue = null;
+        String returnValue = "";
 
         switch (placeholder){
             case "timedwings_total_flight_time":

@@ -47,7 +47,7 @@ public class DefaultCommand extends Command {
 
     @Override
     public void onConsoleCommand(ConsoleCommandSender sender, String[] args) {
-        sender.sendMessage("This command is not available for the console.");
+        plugin.getMessageManager().sendLanguageMessage(sender, "Commands.Console-Only");
     }
 
     @Override

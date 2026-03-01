@@ -23,9 +23,18 @@ public class PlayerData {
     }
     public void addFlightTime(int toAddTime){
         this.remainingFlightTime += toAddTime;
+        capFlightTime();
     }
     public void setFlightTime(int remainingFlightTime) {
         this.remainingFlightTime = remainingFlightTime;
+        capFlightTime();
+    }
+
+    private void capFlightTime() {
+        int maxFlightTime = plugin.getConfiguration().getInt("general.max-flight-time", -1);
+        if (maxFlightTime > 0 && this.remainingFlightTime > maxFlightTime) {
+            this.remainingFlightTime = maxFlightTime;
+        }
     }
 
     public int getRemainingFlightTime() {

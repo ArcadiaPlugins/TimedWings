@@ -48,6 +48,10 @@ general:
   disabled-regions:
     - 'disabled-region'
 
+  # Maximum flight time a player can accumulate (in seconds).
+  # Set to -1 for no limit.
+  max-flight-time: -1
+
   # Automatically enables flight mode when a player enters a flyable area.
   auto-fly: true
 

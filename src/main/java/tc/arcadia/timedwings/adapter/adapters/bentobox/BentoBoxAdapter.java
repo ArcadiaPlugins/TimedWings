@@ -16,7 +16,8 @@ public class BentoBoxAdapter extends TimedWingsAdapter {
 
     @Override
     public boolean canFly(Player player) {
-        return false;
+        // TODO: Implement BentoBox island permission check using timedWingsFlag
+        return true;
     }
 
     @Override
